@@ -1,22 +1,18 @@
-# ExoplayerPIPexample
+# Kotlin-based-Exoplayer-Android-APP-with-PIP-and-Notification
 
-Example App with drop-in VideoActivity with full Exoplayer2 with Picture-in-Picture support baked in.
-
-![App Screenshot](https://raw.githubusercontent.com/childofthehorn/ExoplayerPIPexample/master/exampleimages/pip_infinite_cycle.gif "App Screenshot")
+Android APP that supports mobile devices as well as Android TV. App is developed using Kotlin and supports Picture-In-Picture and Notification.
 
 ## Min SDK
 Min sdk is API 21 (Lollipop)
 
-## Features 
-- Exoplayer 2
-- SimpleExoplayer 
-- HLS Streaming
-- URL MPEG/AVI content
-- Local video files
-- Picture in Picture full support
-- Picture in Picture, not affecting nonPIP devices
-- Picture in Picture with media controls
-- Picture in Picture permission and advanced permission handling
+## Requirements for this project
+1.	Kotlin based Exoplayer development
+2.	Picture-In-Picture (PIP) support
+3.	Notification support with playing audio 
+4.	Support for Android TV
+5.	Support for YouTube Video
+6.	Access JSON file to identify the necessary M3U8 or MP4 file to be played
+
 
 ## License
 All libraries referenced are covered by their own license, all unique code is covered by the license below :
