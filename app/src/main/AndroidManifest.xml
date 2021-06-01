@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ExoPlayerPIPexample">
+
+    <!--
+        true:  your app runs on only TV
+        false: your app runs on phone and TV
+    -->
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+
+    <!-- TV app need to declare touchscreen not required -->
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:banner="@drawable/image"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="com.ExoPlayerPIPexample.StarterActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
+            android:resizeableActivity="true"
+            android:theme="@style/Theme.AppCompat.FullScreen"
+            android:supportsPictureInPicture="true"
+            android:launchMode="singleInstance">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="closeActivity" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ExoPlayerPIPexample.YouTubeVideoActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:supportsPictureInPicture="true">
+        </activity>
+        <activity android:name="com.ExoPlayerPIPexample.TvActivity"
+            android:label="@string/app_name"
+            android:theme="@style/ThemeLeanback">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name="com.ExoPlayerPIPexample.PlayerNotificationService" android:stopWithTask="true"/>
+
+    </application>
+
+</manifest>
