@@ -18,12 +18,12 @@ Min sdk is API 21 (Lollipop)
 ### How to use the app
 1. This github repository contains ExtraFiles folder that contains the sample video files (M3U8 and MP4). M3U8 being a playlist, the necessary TS files are also provided there.
 2. JSON file is provided as “sampleMedia.json”
-   a. Change the link towards the necessary video link in this JSON file. 
-   b. For YouTube video: Provide the necessary YouTube video link and the APIKEY.
+   - Change the link towards the necessary video link in this JSON file. 
+   - For YouTube video: Provide the necessary YouTube video link and the APIKEY.
 3. This app runs the YouTube video only when the first link is empty.
 4. For YouTube video to be played, an YouTubeAndroidPlayerApi.jar file is provided in the libs folder of the app.
 
-Google Play concerns
+### Google Play concerns
 1.	No Now Playing notification [card]: What happens when the HOME button is pressed?
 a.	Some of the information present in this page [https://developer.android.com/training/tv/playback/now-playing#card] is deprecated.
 b.	mediaSession.isActive = false
@@ -37,20 +37,21 @@ a.	This could be handled using a banner image in the app drawable folder and ref
 a.	Check if the relation between the background service and the activity. Maybe, they are not properly bind or unbind.
 4.	Crashing after launch: This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
 
-Lessons learnt from the code
-Manifest file related:
-1.	Manifest file: 
-a.	For Android TV: What are the requirements to be done in the Manifest file?
-<!-- true:  your app runs on only TV
-     false: your app runs on phone and TV -->
-<uses-feature android:name="android.software.leanback"
-    android:required="false" />
-<!-- TV app need to declare touchscreen not required -->
-<uses-feature android:name="android.hardware.touchscreen"
-    android:required="false" />
-
-At the activity level: 
-android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
+### Lessons learnt from the code
+1. Manifest file related:
+   - Manifest file: 
+     - For Android TV: What are the requirements to be done in the Manifest file?
+```
+     <!-- true:  your app runs on only TV
+        false: your app runs on phone and TV -->
+       <uses-feature android:name="android.software.leanback" android:required="false" />
+     <!-- TV app need to declare touchscreen not required -->
+       <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+```
+   - At the activity level: 
+```
+     android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
+```
 
 In order to support PIP:
 android:supportsPictureInPicture="true"
