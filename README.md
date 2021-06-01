@@ -1,27 +1,27 @@
-# Kotlin-based-Exoplayer-Android-APP-with-PIP-and-Notification
+## Kotlin-based-Exoplayer-Android-APP-with-PIP-and-Notification
 Android APP that supports mobile devices as well as Android TV. App is developed using Kotlin and supports Picture-In-Picture and Notification.
 
-## Disclaimner
+### Disclaimner
 I am not claiming to be an expert in this area. I have collected information from various sources on the Internet to accomplish these requirements.
 
-## Min SDK
+### Min SDK
 Min sdk is API 21 (Lollipop)
 
-## Requirements for this project
-1.	Kotlin based Exoplayer development
-2.	Picture-In-Picture (PIP) support
-3.	Notification support with playing audio 
-4.	Support for Android TV
-5.	Support for YouTube Video
-6.	Access JSON file to identify the necessary M3U8 or MP4 file to be played
+### Requirements for this project
+1. Kotlin based Exoplayer development
+2. Picture-In-Picture (PIP) support
+3. Notification support with playing audio 
+4. Support for Android TV
+5. Support for YouTube Video
+6. Access JSON file to identify the necessary M3U8 or MP4 file to be played
 
-How to use the app
-1.	This github repository contains ExtraFiles folder that contains the sample video files (M3U8 and MP4). M3U8 being a playlist, the necessary TS files are also provided there.
-2.	JSON file is provided as “sampleMedia.json”
-a.	Change the link towards the necessary video link in this JSON file. 
-b.	For YouTube video: Provide the necessary YouTube video link and the APIKEY.
-3.	This app runs the YouTube video only when the first link is empty.
-4.	For YouTube video to be played, an YouTubeAndroidPlayerApi.jar file is provided in the libs folder of the app.
+### How to use the app
+1. This github repository contains ExtraFiles folder that contains the sample video files (M3U8 and MP4). M3U8 being a playlist, the necessary TS files are also provided there.
+2. JSON file is provided as “sampleMedia.json”
+   a. Change the link towards the necessary video link in this JSON file. 
+   b. For YouTube video: Provide the necessary YouTube video link and the APIKEY.
+3. This app runs the YouTube video only when the first link is empty.
+4. For YouTube video to be played, an YouTubeAndroidPlayerApi.jar file is provided in the libs folder of the app.
 
 Google Play concerns
 1.	No Now Playing notification [card]: What happens when the HOME button is pressed?
