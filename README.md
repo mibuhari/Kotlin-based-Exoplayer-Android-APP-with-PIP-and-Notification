@@ -50,12 +50,12 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
      - In order to support PIP: 
         ``` android:supportsPictureInPicture="true"   ``` 
      - Leanback launcher is required: <br/>
-	```
+       ```
         <intent-filter>
            <action android:name="android.intent.action.MAIN" />
            <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
         </intent-filter>
-	```
+       ```
 
 #### 2. Image related:  #### 
    - How to generate the necessary images for various devices?
