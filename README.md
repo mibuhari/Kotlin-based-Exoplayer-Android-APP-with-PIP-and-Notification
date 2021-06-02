@@ -46,10 +46,10 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
    - At the activity level:  
 	```
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
-	```
+	``` 
    - In order to support PIP: 
-        ``` android:supportsPictureInPicture="true"   ```
-    - Leanback launcher is required:
+        ``` android:supportsPictureInPicture="true"   ``` <br/>
+   - Leanback launcher is required:
 	```
 	   <intent-filter>
 	    <action android:name="android.intent.action.MAIN" />
