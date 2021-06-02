@@ -24,9 +24,9 @@ Min sdk is API 21 (Lollipop)
 4. For YouTube video to be played, an YouTubeAndroidPlayerApi.jar file is provided in the libs folder of the app.
 
 ### Google Play concerns
-Concern | Deprecation Issue  | Solution
+Concern        | Deprecation Issue  | Solution
 ----------------- | ------------- | -------------
-<img width=200/> No Now Playing notification [card]: What happens when the HOME button is pressed? | Some of the information present in this page [https://developer.android.com/training/tv/playback/now-playing#card] is deprecated. | mediaSession.isActive = false
+No Now Playing notification [card]: What happens when the HOME button is pressed? | Some of the information present in this page [https://developer.android.com/training/tv/playback/now-playing#card] is deprecated. | mediaSession.isActive = false
 Update of metadata | Content in the second column |  ``` val builder = MediaMetadataCompat.Builder() <br>  builder.putString(MediaMetadataCompat.METADATA_KEY_TITLE, "ExoPlayer PIP example") ```
 No full-size app banner: xhdpi banner with size 320px X 180px | N/A | This could be handled using a banner image in the app drawable folder and refer it in the manifest file as: ``` <application android:banner="@drawable/image" ...  ```
 Audio plays after selecting “stops” | N/A | Check if the relation between the background service and the activity. Maybe, they are not properly bind or unbind.
