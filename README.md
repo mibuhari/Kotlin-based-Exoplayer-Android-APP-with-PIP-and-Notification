@@ -39,81 +39,80 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
 #### 1. Manifest file related: ####
    - Manifest file: 
      - For Android TV: What are the requirements to be done in the Manifest file?
-```
-     <!-- true:  your app runs on only TV
-        false: your app runs on phone and TV -->
-       <uses-feature android:name="android.software.leanback" android:required="false" />
-     <!-- TV app need to declare touchscreen not required -->
-       <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
-```
+	```
+	     <!-- true:  your app runs on only TV
+		false: your app runs on phone and TV -->
+	       <uses-feature android:name="android.software.leanback" android:required="false" />
+	     <!-- TV app need to declare touchscreen not required -->
+	       <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+	```
    - At the activity level:  
-```
-     android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
-```
+	```
+	     android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
+	```
 
-   - In order to support PIP: ```
-android:supportsPictureInPicture="true"   ```
+   - In order to support PIP: ``` android:supportsPictureInPicture="true"   ```
 
     - Leanback launcher is required:
-```
-   <intent-filter>
-    <action android:name="android.intent.action.MAIN" />
-    <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-   </intent-filter>
-```
+	```
+	   <intent-filter>
+	    <action android:name="android.intent.action.MAIN" />
+	    <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+	   </intent-filter>
+	```
 
-2. Image related:
+#### 2. Image related:  #### 
    - How to generate the necessary images for various devices?
      - Right-Click on the res folder, click New and then click Image Asset. A suitable image can be selected and appropriate images can be selected.  
    - Even though the appropriate images have been provided, the necessary images are not displayed. How to handle it?
      - XML files like ic_launcher_foreground.xml and ic_launcher_background.xml might be present in the drawable folder. This shows the default image type. Once you remove these files, the newly generated images will appear.
 
-3. Android TV related:  
+#### 3. Android TV related:   #### 
    - How to handle the deprecation in MediaSession.FLAG_HANDLES_MEDIA_BUTTONS or MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS?   
      - This is handled using MediaSessionCompat.Callback() and capturing the keys.  
    - How to handle pressing of the Back key in the app?  	  
    - How to catch and handle various keys pressed in the app?  
-```
-mediaSession.setCallback(object : MediaSessionCompat.Callback() {
-override fun onPause() {
-    // called when the Stop button in the Notification bar is pressed.
-    if (!isReleasePlayerCalled) player.stop()
-    }
-override fun onMediaButtonEvent(mediaButtonIntent: Intent): Boolean {
- val ev: KeyEvent = mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT)
-        when (ev.keyCode) {
-            KeyEvent.KEYCODE_MEDIA_PAUSE -> {player.pause()}
-            KeyEvent.KEYCODE_MEDIA_STOP ->  { }
-            else -> return false
-        }
-        return super.onMediaButtonEvent(mediaButtonIntent)
-    }
-})
-```
+	```
+	mediaSession.setCallback(object : MediaSessionCompat.Callback() {
+	override fun onPause() {
+	    // called when the Stop button in the Notification bar is pressed.
+	    if (!isReleasePlayerCalled) player.stop()
+	    }
+	override fun onMediaButtonEvent(mediaButtonIntent: Intent): Boolean {
+	 val ev: KeyEvent = mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT)
+		when (ev.keyCode) {
+		    KeyEvent.KEYCODE_MEDIA_PAUSE -> {player.pause()}
+		    KeyEvent.KEYCODE_MEDIA_STOP ->  { }
+		    else -> return false
+		}
+		return super.onMediaButtonEvent(mediaButtonIntent)
+	    }
+	})
+	```
 
-4. Exoplayer related:
+#### 4. Exoplayer related: #### 
    - Playstate in the MediaSession should be updated. How could it be done?
-```
-val mediaController: MediaControllerCompat = mediaSession.getController()
-val stateCompat: PlaybackStateCompat = mediaController.getPlaybackState()
-val stateBuilder = PlaybackStateCompat.Builder()
-    .setActions(getAvailableActions()).apply {
-        setState(stateCompat.getState(), player.currentPosition.toLong(), 1.0f) }
-mediaSession.setPlaybackState(stateBuilder.build())
-```
-```
-var actions = (PlaybackState.ACTION_PLAY_PAUSE
-or PlaybackState.ACTION_PLAY or PlaybackState.ACTION_PAUSE
-or PlaybackState.ACTION_REWIND or PlaybackState.ACTION_STOP )
-val mediaController: MediaControllerCompat = mediaSession.getController()
-val stateCompat: PlaybackStateCompat = mediaController.getPlaybackState()
-val mState = stateCompat.getState()
-actions = if (mState == PlaybackState.STATE_PLAYING) {
-    actions or PlaybackState.ACTION_PAUSE 
-} else { actions or PlaybackState.ACTION_PLAY }
-```
+	```
+	val mediaController: MediaControllerCompat = mediaSession.getController()
+	val stateCompat: PlaybackStateCompat = mediaController.getPlaybackState()
+	val stateBuilder = PlaybackStateCompat.Builder()
+	    .setActions(getAvailableActions()).apply {
+		setState(stateCompat.getState(), player.currentPosition.toLong(), 1.0f) }
+	mediaSession.setPlaybackState(stateBuilder.build())
+	```
+	```
+	var actions = (PlaybackState.ACTION_PLAY_PAUSE
+	or PlaybackState.ACTION_PLAY or PlaybackState.ACTION_PAUSE
+	or PlaybackState.ACTION_REWIND or PlaybackState.ACTION_STOP )
+	val mediaController: MediaControllerCompat = mediaSession.getController()
+	val stateCompat: PlaybackStateCompat = mediaController.getPlaybackState()
+	val mState = stateCompat.getState()
+	actions = if (mState == PlaybackState.STATE_PLAYING) {
+	    actions or PlaybackState.ACTION_PAUSE 
+	} else { actions or PlaybackState.ACTION_PLAY }
+	```
 
-5. Exoplayer related issues
+#### 5. Exoplayer related issues #### 
    - SimpleExoplayer.Builder(…) is to be used instead of ExoPlayerFactory.newSimpleInstance(…)
    - What is the difference between prepare() and play() methods in ExoPlayer?
      - Exoplayer prepare() method is used to acquire all the resources required for playback.
@@ -123,44 +122,54 @@ actions = if (mState == PlaybackState.STATE_PLAYING) {
    - Sometimes the audio/media buttons like play, pause and others are not visible. How to handle this?
      - playerView.setUseController(true)
 
-6. Notification related:
-12.	How to make sure only audio bandwidth is consumed when the app is playing in the background?
-trackSelector = DefaultTrackSelector(this)
-mPlayer = SimpleExoPlayer.Builder(this)
-    .setTrackSelector(trackSelector).build()
-trackSelector.setParameters(
-    trackSelector.buildUponParameters().setMaxVideoBitrate(0))
-}
-13.	Can the notification be removed as it is tied to a foreground service?
-a.	stopForeground(…) must be used. This could be checked using isPlaying in onIsPlayingChanged(…)
-14.	Notification Service: What is the use of stopWithTask option?
+#### 6. Notification related:  #### 
+   - How to make sure only audio bandwidth is consumed when the app is playing in the background?
+	```
+	trackSelector = DefaultTrackSelector(this)
+	mPlayer = SimpleExoPlayer.Builder(this)
+	    .setTrackSelector(trackSelector).build()
+	trackSelector.setParameters(
+	    trackSelector.buildUponParameters().setMaxVideoBitrate(0))
+	}
+	````
+    - Can the notification be removed as it is tied to a foreground service?
+      - stopForeground(…) must be used. This could be checked using isPlaying in onIsPlayingChanged(…)
+    - Notification Service: What is the use of stopWithTask option?
+```
 <service android:name="com.ExoPlayerPIPexample.PlayerNotificationService" android:stopWithTask="true"/>
+```
 Service will be automatically stopped when the user remove a task rooted in an activity owned by the application. Refer: https://developer.android.com/reference/android/R.attr#stopWithTask
-15.	How to display elements in Notification bar when playing the audio in background?
+    - How to display elements in Notification bar when playing the audio in background?
+```
 override fun getCurrentContentText(player: Player): String? {
     return "ExoPlayer PIP example"
 }
-16.	The space in the notification bar is limited and thus if you wish to make the stop button visible, how to do this?
+```
+     - The space in the notification bar is limited and thus if you wish to make the stop button visible, how to do this?
+```
 playerNotificationManager.setUseStopAction(true)
 playerNotificationManager.setFastForwardIncrementMs(0)
 playerNotificationManager.setRewindIncrementMs(0)
-17.	onNotificationPosted is called every time a notification is posted and/or created. How to handle this?
-a.	The method onDestroy() calls playerNotificationManager.setPlayer(null)
+```
+    - onNotificationPosted is called every time a notification is posted and/or created. How to handle this?
+      - The method onDestroy() calls playerNotificationManager.setPlayer(null)
 
-Service related:
-18.	How to make sure that all the services or processes or activities are closed?
-a.	You could get the current state of the activity: lifecycle.currentState.toString()
-b.	We could get the details of the running app processes:
+####  Service related:  #### 
+    - How to make sure that all the services or processes or activities are closed?
+      - You could get the current state of the activity: lifecycle.currentState.toString()
+      - We could get the details of the running app processes:
+```
 val mngr = getSystemService(ACTIVITY_SERVICE) as ActivityManager
 for (service in mngr.getRunningAppProcesses()) {
     Log.e("messages",service.processName)
 }
-19.	What is the difference between bindService and startService?
-a.	startService() is used to start a service but bindService() is used to bound a service.
-b.	Bounded services will be automatically destroyed when all clients have detached.
-c.	Services can be stopped using stopSelf() and stopService().
+```
+    - What is the difference between bindService and startService?
+      - startService() is used to start a service but bindService() is used to bound a service.
+      - Bounded services will be automatically destroyed when all clients have detached.
+      - Services can be stopped using stopSelf() and stopService().
 
-General information:
+####  General information:  #### 
 20.	Is development in Kotlin difficult?
 Not so. Even Android Studio converts the Java code into Kotlin code for us.
 21.	What if a specific code is applicable to a specific version of Android only?
