@@ -25,7 +25,7 @@ Min sdk is API 21 (Lollipop)
 
 ### Google Play concerns
 Concern | Deprecation Issue  | Solution
------------- | ------------- | -------------
+----------------- | ------------- | -------------
 No Now Playing notification [card]: What happens when the HOME button is pressed? | Some of the information present in this page [https://developer.android.com/training/tv/playback/now-playing#card] is deprecated. | mediaSession.isActive = false
 Update of metadata | Content in the second column |  ``` val builder = MediaMetadataCompat.Builder() <br>  builder.putString(MediaMetadataCompat.METADATA_KEY_TITLE, "ExoPlayer PIP example") ```
 No full-size app banner: xhdpi banner with size 320px X 180px | N/A | This could be handled using a banner image in the app drawable folder and refer it in the manifest file as: ``` <application android:banner="@drawable/image" ...  ```
