@@ -33,7 +33,7 @@ Audio plays after selecting “stops” | N/A | Check if the relation between th
 Crashing after launch | N/A | This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
 
 ### Lessons learnt from the code
-1. Manifest file related:
+#### 1. Manifest file related: ####
    - Manifest file: 
      - For Android TV: What are the requirements to be done in the Manifest file?
 ```
