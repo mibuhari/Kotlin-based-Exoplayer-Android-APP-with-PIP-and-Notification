@@ -7,6 +7,10 @@ I am not claiming to be an expert in this area. I have collected information fro
 ### Min SDK
 Min sdk is API 21 (Lollipop)
 
+### Table of contents
+[Requirements](# Requirements for this project)
+
+<a name="requirements"/>
 ### Requirements for this project
 1. Kotlin based Exoplayer development
 2. Picture-In-Picture (PIP) support
