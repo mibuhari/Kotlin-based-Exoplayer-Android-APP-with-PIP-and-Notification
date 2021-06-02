@@ -68,12 +68,11 @@ android:supportsPictureInPicture="true"   ```
    - Even though the appropriate images have been provided, the necessary images are not displayed. How to handle it?
      - XML files like ic_launcher_foreground.xml and ic_launcher_background.xml might be present in the drawable folder. This shows the default image type. Once you remove these files, the newly generated images will appear.
 
-3. Android TV related:
-   - How to handle the deprecation in MediaSession.FLAG_HANDLES_MEDIA_BUTTONS or MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS? 
-     - This is handled using MediaSessionCompat.Callback() and capturing the keys.
-   - How to handle pressing of the Back key in the app?
-	
-   - How to catch and handle various keys pressed in the app?
+3. Android TV related:  
+   - How to handle the deprecation in MediaSession.FLAG_HANDLES_MEDIA_BUTTONS or MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS?   
+     - This is handled using MediaSessionCompat.Callback() and capturing the keys.  
+   - How to handle pressing of the Back key in the app?  	  
+   - How to catch and handle various keys pressed in the app?  
 ```
 mediaSession.setCallback(object : MediaSessionCompat.Callback() {
 override fun onPause() {
