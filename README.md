@@ -68,23 +68,23 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
      - This is handled using MediaSessionCompat.Callback() and capturing the keys.  
    - How to handle pressing of the Back key in the app?  	  
    - How to catch and handle various keys pressed in the app?  
-	```
-	mediaSession.setCallback(object : MediaSessionCompat.Callback() {
-	override fun onPause() {
-	    // called when the Stop button in the Notification bar is pressed.
-	    if (!isReleasePlayerCalled) player.stop()
-	    }
-	override fun onMediaButtonEvent(mediaButtonIntent: Intent): Boolean {
-	 val ev: KeyEvent = mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT)
-		when (ev.keyCode) {
-		    KeyEvent.KEYCODE_MEDIA_PAUSE -> {player.pause()}
-		    KeyEvent.KEYCODE_MEDIA_STOP ->  { }
-		    else -> return false
-		}
-		return super.onMediaButtonEvent(mediaButtonIntent)
-	    }
-	})
-	```
+      ```
+        mediaSession.setCallback(object : MediaSessionCompat.Callback() {
+        override fun onPause() {
+           // called when the Stop button in the Notification bar is pressed.
+           if (!isReleasePlayerCalled) player.stop()
+        }
+        override fun onMediaButtonEvent(mediaButtonIntent: Intent): Boolean {
+          val ev: KeyEvent = mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT)
+             when (ev.keyCode) {
+                KeyEvent.KEYCODE_MEDIA_PAUSE -> {player.pause()}
+                   KeyEvent.KEYCODE_MEDIA_STOP ->  { }
+                   else -> return false
+             }
+          return super.onMediaButtonEvent(mediaButtonIntent)
+         }
+      })
+     ```
 
 #### 4. Exoplayer related: #### 
    - Playstate in the MediaSession should be updated. How could it be done?
@@ -120,33 +120,34 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
 
 #### 6. Notification related:  #### 
    - How to make sure only audio bandwidth is consumed when the app is playing in the background?
-	```
-	trackSelector = DefaultTrackSelector(this)
-	mPlayer = SimpleExoPlayer.Builder(this)
-	    .setTrackSelector(trackSelector).build()
-	trackSelector.setParameters(
-	    trackSelector.buildUponParameters().setMaxVideoBitrate(0))
-	}
-	````
+      ```
+       trackSelector = DefaultTrackSelector(this)
+       mPlayer = SimpleExoPlayer.Builder(this)
+          .setTrackSelector(trackSelector).build()
+       trackSelector.setParameters(
+          trackSelector.buildUponParameters().setMaxVideoBitrate(0))
+       }
+      ```
     - Can the notification be removed as it is tied to a foreground service?
       - stopForeground(…) must be used. This could be checked using isPlaying in onIsPlayingChanged(…)
     - Notification Service: What is the use of stopWithTask option?
-```
-<service android:name="com.ExoPlayerPIPexample.PlayerNotificationService" android:stopWithTask="true"/>
-```
-Service will be automatically stopped when the user remove a task rooted in an activity owned by the application. Refer: https://developer.android.com/reference/android/R.attr#stopWithTask
+       ```
+        <service android:name="com.ExoPlayerPIPexample.PlayerNotificationService" android:stopWithTask="true"/>
+       ```
+       Service will be automatically stopped when the user remove a task rooted in an activity owned by the application. 
+       Refer: https://developer.android.com/reference/android/R.attr#stopWithTask
     - How to display elements in Notification bar when playing the audio in background?
-```
-override fun getCurrentContentText(player: Player): String? {
-    return "ExoPlayer PIP example"
-}
-```
+      ```
+        override fun getCurrentContentText(player: Player): String? {
+           return "ExoPlayer PIP example"
+        }
+      ```
      - The space in the notification bar is limited and thus if you wish to make the stop button visible, how to do this?
-```
-playerNotificationManager.setUseStopAction(true)
-playerNotificationManager.setFastForwardIncrementMs(0)
-playerNotificationManager.setRewindIncrementMs(0)
-```
+        ```
+          playerNotificationManager.setUseStopAction(true)
+          playerNotificationManager.setFastForwardIncrementMs(0)
+          playerNotificationManager.setRewindIncrementMs(0)
+        ```
     - onNotificationPosted is called every time a notification is posted and/or created. How to handle this?
       - The method onDestroy() calls playerNotificationManager.setPlayer(null)
 
@@ -154,8 +155,8 @@ playerNotificationManager.setRewindIncrementMs(0)
     - How to make sure that all the services or processes or activities are closed?
       - You could get the current state of the activity: lifecycle.currentState.toString()
       - We could get the details of the running app processes:
-```
-val mngr = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        ```
+          val mngr = getSystemService(ACTIVITY_SERVICE) as ActivityManager
 for (service in mngr.getRunningAppProcesses()) {
     Log.e("messages",service.processName)
 }
