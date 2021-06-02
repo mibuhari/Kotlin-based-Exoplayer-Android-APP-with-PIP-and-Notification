@@ -28,9 +28,9 @@ Concerns raised | Deprecation Issue  | Solution
 ----------------- | ------------- | -------------
 No Now Playing notification [card]: What happens when the HOME button is pressed? | Some of the information present in this [page](https://developer.android.com/training/tv/playback/now-playing#card) is deprecated. | mediaSession.isActive = false
 Update of metadata | Content in the second column |  ``` val builder = MediaMetadataCompat.Builder()``` <br/> ```builder.putString(MediaMetadataCompat.METADATA_KEY_TITLE, "ExoPlayer PIP example") ```
-No full-size app banner: xhdpi banner with size 320px X 180px | N/A | This could be handled using a banner image in the app drawable folder and refer it in the manifest file as: ``` <application android:banner="@drawable/image" ...  ```
-Audio plays after selecting “stops” | N/A | Check if the relation between the background service and the activity. Maybe, they are not properly bind or unbind.
-Crashing after launch | N/A | This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
+No full-size app banner: xhdpi banner with size 320px X 180px | Not Applicable | This could be handled using a banner image in the app drawable folder and refer it in the manifest file as: ``` <application android:banner="@drawable/image" ...  ```
+Audio plays after selecting “stops” | Not Applicable | Check if the relation between the background service and the activity. Maybe, they are not properly bind or unbind.
+Crashing after launch | Not Applicable | This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
 
 ### Lessons learnt from the code
 #### 1. Manifest file related: ####
