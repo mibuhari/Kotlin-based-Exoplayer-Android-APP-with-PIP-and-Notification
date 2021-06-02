@@ -12,9 +12,14 @@ Min sdk is API 21 (Lollipop)
 2. [How to use the app](#how-to)
 3. [Google Play concerns](#google-play)
 4. [Lessons learnt from the code](#lessons-learnt)
-   - [Manifest file related](#manifest-file)
+   - [Manifest file related](#manifest-file-related)
+   - [Image related](#image-related)
+   - [Android TV related](#android-tv-related)
+   - [Exoplayer related](#exoplayer-related)
+   - [Notification related](#notification-related)
+   - [Service related](#service-related)
    - [General information](#general-info)
-5. [References](#requirements)
+5. [References](#references)
 
 ### Requirements for this project<a name="requirements"></a>
 1. Kotlin based Exoplayer development
@@ -42,7 +47,7 @@ Audio plays after selecting “stops” | Not Applicable | Check if the relation
 Crashing after launch | Not Applicable | This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
 
 ### Lessons learnt from the code<a name="lessons-learnt"></a>
-#### 1. Manifest file related: ####<a name="manifest-file"></a>
+#### 1. Manifest file related:<a name="manifest-file-related"></a>
    - For Android TV: What are the requirements to be done in the Manifest file? 
      - Leanback and touchscreen:
        ```
@@ -63,13 +68,13 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
         </intent-filter>
        ```
 
-#### 2. Image related:  #### 
+#### 2. Image related:<a name="image-related"></a> 
    - How to generate the necessary images for various devices?
      - Right-Click on the res folder, click New and then click Image Asset. A suitable image can be selected and appropriate images can be selected.  
    - Even though the appropriate images have been provided, the necessary images are not displayed. How to handle it?
      - XML files like ic_launcher_foreground.xml and ic_launcher_background.xml might be present in the drawable folder. This shows the default image type. Once you remove these files, the newly generated images will appear.
 
-#### 3. Android TV related:   #### 
+#### 3. Android TV related:<a name="android-tv-related"></a> 
    - How to handle the deprecation in MediaSession.FLAG_HANDLES_MEDIA_BUTTONS or MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS?   
      - This is handled using MediaSessionCompat.Callback() and capturing the keys.  
    - How to handle pressing of the Back key in the app?  	  
@@ -92,7 +97,15 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
       })
      ```
 
-#### 4. Exoplayer related: #### 
+#### 4. Exoplayer related:<a name="exoplayer-related"></a> 
+   - SimpleExoplayer.Builder(…) is to be used instead of ExoPlayerFactory.newSimpleInstance(…)
+   - What is the difference between prepare() and play() methods in ExoPlayer?
+     - Exoplayer prepare() method is used to acquire all the resources required for playback.
+     - Exoplayer play() method is used to play when the stream is ready. The option player.playWhenReady could be enabled true to play once the stream is ready.
+   - What is the use of MediaSession in ExoPlayer instance?
+     - MediaSession is used to provide various details to the media player, like meta data, handling keys, etc. 
+   - Sometimes the audio/media buttons like play, pause and others are not visible. How to handle this?
+     - playerView.setUseController(true)
    - Playstate in the MediaSession should be updated. How could it be done?
      ```
       val mediaController: MediaControllerCompat = mediaSession.getController()
@@ -114,17 +127,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
         } else { actions or PlaybackState.ACTION_PLAY }
       ```
 
-#### 5. Exoplayer related issues #### 
-   - SimpleExoplayer.Builder(…) is to be used instead of ExoPlayerFactory.newSimpleInstance(…)
-   - What is the difference between prepare() and play() methods in ExoPlayer?
-     - Exoplayer prepare() method is used to acquire all the resources required for playback.
-     - Exoplayer play() method is used to play when the stream is ready. The option player.playWhenReady could be enabled true to play once the stream is ready.
-   - What is the use of MediaSession in ExoPlayer instance?
-     - MediaSession is used to provide various details to the media player, like meta data, handling keys, etc. 
-   - Sometimes the audio/media buttons like play, pause and others are not visible. How to handle this?
-     - playerView.setUseController(true)
-
-#### 6. Notification related:  #### 
+#### 5. Notification related:<a name="notification-related"></a> 
    - How to make sure only audio bandwidth is consumed when the app is playing in the background?
       ```
        trackSelector = DefaultTrackSelector(this)
@@ -157,7 +160,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
    - onNotificationPosted is called every time a notification is posted and/or created. How to handle this?
       - The method onDestroy() calls playerNotificationManager.setPlayer(null)
 
-#### 7. Service related:  #### 
+#### 6. Service related:<a name="service-related"></a> 
    - How to make sure that all the services or processes or activities are closed?
      - You could get the current state of the activity: lifecycle.currentState.toString()
      - We could get the details of the running app processes:
@@ -172,7 +175,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
       - Bounded services will be automatically destroyed when all clients have detached.
       - Services can be stopped using stopSelf() and stopService().
 
-#### 8. General information:<a name="general-info"></a>
+#### 7. General information:<a name="general-info"></a>
    - Is development in Kotlin difficult?
       - Not so. Even Android Studio converts the Java code into Kotlin code for us.
    - What if a specific code is applicable to a specific version of Android only?
