@@ -28,14 +28,9 @@ Concern | Deprecation Issue  | Solution
 ------------ | ------------- | -------------
 No Now Playing notification [card]: What happens when the HOME button is pressed? | Some of the information present in this page [https://developer.android.com/training/tv/playback/now-playing#card] is deprecated. | mediaSession.isActive = false
 Update of metadata | Content in the second column |  ``` val builder = MediaMetadataCompat.Builder() <br>  builder.putString(MediaMetadataCompat.METADATA_KEY_TITLE, "ExoPlayer PIP example") ```
-
-	
-2.	No full-size app banner: xhdpi banner with size 320px X 180px
-a.	This could be handled using a banner image in the app drawable folder and refer it in the manifest file as:
-	<application android:banner="@drawable/image" ...
-3.	Audio plays after selecting “stops”
-a.	Check if the relation between the background service and the activity. Maybe, they are not properly bind or unbind.
-4.	Crashing after launch: This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
+No full-size app banner: xhdpi banner with size 320px X 180px | N/A | This could be handled using a banner image in the app drawable folder and refer it in the manifest file as: ``` <application android:banner="@drawable/image" ...  ```
+Audio plays after selecting “stops” | N/A | Check if the relation between the background service and the activity. Maybe, they are not properly bind or unbind.
+Crashing after launch | N/A | This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
 
 ### Lessons learnt from the code
 1. Manifest file related:
@@ -53,27 +48,30 @@ a.	Check if the relation between the background service and the activity. Maybe,
      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
 ```
 
-In order to support PIP:
-android:supportsPictureInPicture="true"
+   - In order to support PIP: ```
+android:supportsPictureInPicture="true"   ```
 
-Leanback launcher is required:
-<intent-filter>
-   <action android:name="android.intent.action.MAIN" />
-   <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-</intent-filter>
+    - Leanback launcher is required:
+```
+   <intent-filter>
+    <action android:name="android.intent.action.MAIN" />
+    <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+   </intent-filter>
+```
 
-Image related:
-2.	How to generate the necessary images for various devices?
-a.	Right-Click on the res folder, click New and then click Image Asset. A suitable image can be selected and appropriate images can be selected.  
-3.	Even though the appropriate images have been provided, the necessary images are not displayed. How to handle it?
-a.	XML files like ic_launcher_foreground.xml and ic_launcher_background.xml might be present in the drawable folder. This shows the default image type. Once you remove these files, the newly generated images will appear.
+2. Image related:
+   - How to generate the necessary images for various devices?
+     - Right-Click on the res folder, click New and then click Image Asset. A suitable image can be selected and appropriate images can be selected.  
+   - Even though the appropriate images have been provided, the necessary images are not displayed. How to handle it?
+     - XML files like ic_launcher_foreground.xml and ic_launcher_background.xml might be present in the drawable folder. This shows the default image type. Once you remove these files, the newly generated images will appear.
 
-Android TV related:
-4.	How to handle the deprecation in MediaSession.FLAG_HANDLES_MEDIA_BUTTONS or MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS? 
-a.	This is handled using MediaSessionCompat.Callback() and capturing the keys.
-5.	How to handle pressing of the Back key in the app?
-a.	
-6.	How to catch and handle various keys pressed in the app?
+3. Android TV related:
+   - How to handle the deprecation in MediaSession.FLAG_HANDLES_MEDIA_BUTTONS or MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS? 
+     - This is handled using MediaSessionCompat.Callback() and capturing the keys.
+   - How to handle pressing of the Back key in the app?
+	
+   - How to catch and handle various keys pressed in the app?
+```
 mediaSession.setCallback(object : MediaSessionCompat.Callback() {
 override fun onPause() {
     // called when the Stop button in the Notification bar is pressed.
@@ -89,16 +87,20 @@ override fun onMediaButtonEvent(mediaButtonIntent: Intent): Boolean {
         return super.onMediaButtonEvent(mediaButtonIntent)
     }
 })
+```
 
-Exoplayer related:
-7.	Playstate in the MediaSession should be updated. How could it be done?
-a.	val mediaController: MediaControllerCompat = mediaSession.getController()
+4. Exoplayer related:
+   - Playstate in the MediaSession should be updated. How could it be done?
+```
+val mediaController: MediaControllerCompat = mediaSession.getController()
 val stateCompat: PlaybackStateCompat = mediaController.getPlaybackState()
 val stateBuilder = PlaybackStateCompat.Builder()
     .setActions(getAvailableActions()).apply {
         setState(stateCompat.getState(), player.currentPosition.toLong(), 1.0f) }
 mediaSession.setPlaybackState(stateBuilder.build())
-b.	var actions = (PlaybackState.ACTION_PLAY_PAUSE
+```
+```
+var actions = (PlaybackState.ACTION_PLAY_PAUSE
 or PlaybackState.ACTION_PLAY or PlaybackState.ACTION_PAUSE
 or PlaybackState.ACTION_REWIND or PlaybackState.ACTION_STOP )
 val mediaController: MediaControllerCompat = mediaSession.getController()
@@ -107,12 +109,13 @@ val mState = stateCompat.getState()
 actions = if (mState == PlaybackState.STATE_PLAYING) {
     actions or PlaybackState.ACTION_PAUSE 
 } else { actions or PlaybackState.ACTION_PLAY }
-c.	
-8.	Exoplayer related issues
-a.	SimpleExoplayer.Builder(…) is to be used instead of ExoPlayerFactory.newSimpleInstance(…)
-9.	What is the difference between prepare() and play() methods in ExoPlayer?
-a.	Exoplayer prepare() method is used to acquire all the resources required for playback.
-b.	Exoplayer play() method is used to play when the stream is ready. The option player.playWhenReady could be enabled true to play once the stream is ready.
+```
+
+5. Exoplayer related issues
+   - SimpleExoplayer.Builder(…) is to be used instead of ExoPlayerFactory.newSimpleInstance(…)
+   - What is the difference between prepare() and play() methods in ExoPlayer?
+     - Exoplayer prepare() method is used to acquire all the resources required for playback.
+     - Exoplayer play() method is used to play when the stream is ready. The option player.playWhenReady could be enabled true to play once the stream is ready.
 10.	What is the use of MediaSession in ExoPlayer instance?
 a.	MediaSession is used to provide various details to the media player, like meta data, handling keys, etc. 
 11.	Sometimes the audio/media buttons like play, pause and others are not visible. How to handle this?
