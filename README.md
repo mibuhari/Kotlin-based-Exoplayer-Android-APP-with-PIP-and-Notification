@@ -200,7 +200,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
         private val BecomingNoisyReceiver: BroadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                if (intent.action == AudioManager.ACTION_AUDIO_BECOMING_NOISY) {
-		// ...
+                  // ...
                 }
             }
         }
