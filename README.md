@@ -51,10 +51,10 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
         ``` android:supportsPictureInPicture="true"   ``` 
      - Leanback launcher is required: <br/>
 	```
-	   <intent-filter>
+	<intent-filter>
 	    <action android:name="android.intent.action.MAIN" />
 	    <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-	   </intent-filter>
+	</intent-filter>
 	```
 
 #### 2. Image related:  #### 
