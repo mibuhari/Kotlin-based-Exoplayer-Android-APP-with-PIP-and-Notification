@@ -128,27 +128,27 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
           trackSelector.buildUponParameters().setMaxVideoBitrate(0))
        }
       ```
-    - Can the notification be removed as it is tied to a foreground service?
-      - stopForeground(…) must be used. This could be checked using isPlaying in onIsPlayingChanged(…)
-    - Notification Service: What is the use of stopWithTask option?
-       ```
+   - Can the notification be removed as it is tied to a foreground service?
+     - stopForeground(…) must be used. This could be checked using isPlaying in onIsPlayingChanged(…)
+   - Notification Service: What is the use of stopWithTask option?
+      ```
         <service android:name="com.ExoPlayerPIPexample.PlayerNotificationService" android:stopWithTask="true"/>
+      ```
+      Service will be automatically stopped when the user remove a task rooted in an activity owned by the application. 
+      Refer: https://developer.android.com/reference/android/R.attr#stopWithTask
+   - How to display elements in Notification bar when playing the audio in background?
+      ```
+       override fun getCurrentContentText(player: Player): String? {
+          return "ExoPlayer PIP example"
+       }
+      ```
+   - The space in the notification bar is limited and thus if you wish to make the stop button visible, how to do this?
        ```
-       Service will be automatically stopped when the user remove a task rooted in an activity owned by the application. 
-       Refer: https://developer.android.com/reference/android/R.attr#stopWithTask
-    - How to display elements in Notification bar when playing the audio in background?
-      ```
-        override fun getCurrentContentText(player: Player): String? {
-           return "ExoPlayer PIP example"
-        }
-      ```
-     - The space in the notification bar is limited and thus if you wish to make the stop button visible, how to do this?
-        ```
           playerNotificationManager.setUseStopAction(true)
           playerNotificationManager.setFastForwardIncrementMs(0)
           playerNotificationManager.setRewindIncrementMs(0)
-        ```
-    - onNotificationPosted is called every time a notification is posted and/or created. How to handle this?
+       ```
+   - onNotificationPosted is called every time a notification is posted and/or created. How to handle this?
       - The method onDestroy() calls playerNotificationManager.setPlayer(null)
 
 ####  Service related:  #### 
