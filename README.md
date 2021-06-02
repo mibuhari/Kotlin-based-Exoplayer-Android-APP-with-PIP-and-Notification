@@ -189,23 +189,28 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
           packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
         ```
    - On a TV, it is necessary to cater for NOISY AUDIO. How to handle this?
-In the Manifest file, add the necessary intent-filter.
-<intent-filter>
-    <action android:name="android.media.AUDIO_BECOMING_NOISY" />
-</intent-filter>
-Then, handle it using BroadcastReceiver.
-private val BecomingNoisyReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action == AudioManager.ACTION_AUDIO_BECOMING_NOISY) {
+      - In the Manifest file, add the necessary intent-filter.
+        ```
+         <intent-filter>
+              <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+         </intent-filter>
+        ```
+   - Then, handle it using BroadcastReceiver.
+      ```
+        private val BecomingNoisyReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+               if (intent.action == AudioManager.ACTION_AUDIO_BECOMING_NOISY) {
 		// ...
+                }
+            }
         }
-    }
-}
-
-Register this receiver during the onPlay() or other methods.
-override fun onPlay() {
-    registerReceiver(BecomingNoisyReceiver, intentFilter)
-}
+      ```
+   - Register this receiver during the onPlay() or other methods.
+     ```
+       override fun onPlay() {
+         registerReceiver(BecomingNoisyReceiver, intentFilter)
+       }
+     ```
    - How to validate whether we are running the app on a TV or a mobile device?
      ```
        val uiModeManager = getSystemService(UI_MODE_SERVICE) as UiModeManager
@@ -214,8 +219,7 @@ override fun onPlay() {
    - How to simulate various keys in emulator, to test the application?
      - C:\Users\<username>\AppData\Local\Android\Sdk\platform-tools\adb shell input keyevent 127
      - Here, 126 is play, 127 is stop, 85 is Play/Pause, 86 is Stop
-     - KeyEvent details are available at:
-     - https://developer.android.com/reference/android/view/KeyEvent
+     - KeyEvent details are available at: https://developer.android.com/reference/android/view/KeyEvent
    - What if the Volley returns the request with an error? Can we request the volley in a loop?
      ```
       private fun volleyRequest()
@@ -243,19 +247,18 @@ override fun onPlay() {
    - https://medium.com/s23nyc-tech/drop-in-android-video-exoplayer2-with-picture-in-picture-e2d4f8c1eb30
 2. Kotlin tutorials
    - https://www.javatpoint.com/kotlin-android-toast
-3.	JSON parsing in Kotlin
-a.	https://android--code.blogspot.com/2020/10/android-kotlin-volley-jsonobjectrequest.html
-4.	Exoplayer on Kotlin - Latest
-a.	https://developer.android.com/guide/topics/media/exoplayer
-5.	Track Selection
-a.	https://exoplayer.dev/track-selection.html
-6.	Notification examples in Java
-a.	https://github.com/yalematta/ExoPlayback/blob/master/app/src/main/java/com/yalematta/android/ExoPlayback/MainActivity.java
-7.	Android Exoplayer Background Play using Kotlin
-a.	https://intensecoder.com/android-exoplayer-background-play-using-kotlin/
-8.	ExoPlayer example: github page example…
-a.	https://github.com/anandwana001/exoplayer-example
-9.	Further discussion examples:
-a.	https://github.com/google/ExoPlayer/issues/5301
-b.	https://github.com/google/ExoPlayer/issues/6693
-10.	
+3. JSON parsing in Kotlin
+   - https://android--code.blogspot.com/2020/10/android-kotlin-volley-jsonobjectrequest.html
+4. Exoplayer on Kotlin - Latest
+   - https://developer.android.com/guide/topics/media/exoplayer
+5. Track Selection
+   - https://exoplayer.dev/track-selection.html
+6. Notification examples in Java
+   - https://github.com/yalematta/ExoPlayback/blob/master/app/src/main/java/com/yalematta/android/ExoPlayback/MainActivity.java
+7. Android Exoplayer Background Play using Kotlin
+   - https://intensecoder.com/android-exoplayer-background-play-using-kotlin/
+8. ExoPlayer example: github page example…
+   - https://github.com/anandwana001/exoplayer-example
+9. Further discussion examples:
+   - https://github.com/google/ExoPlayer/issues/5301
+   - https://github.com/google/ExoPlayer/issues/6693	
