@@ -8,7 +8,7 @@ I am not claiming to be an expert in this area. I have collected information fro
 Min sdk is API 21 (Lollipop)
 
 ### Table of contents
-[Requirements](# Requirements for this project)
+[Requirements for this project](#requirements)
 
 <a name="requirements"/>
 ### Requirements for this project
