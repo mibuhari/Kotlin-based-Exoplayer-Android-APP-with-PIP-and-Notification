@@ -10,7 +10,7 @@ Min sdk is API 21 (Lollipop)
 ### Table of contents
 [Requirements for this project](#requirements)
 
-### Requirements for this project
+### Requirements for this project<a name="requirements"></a>
 1. Kotlin based Exoplayer development
 2. Picture-In-Picture (PIP) support
 3. Notification support with playing audio 
