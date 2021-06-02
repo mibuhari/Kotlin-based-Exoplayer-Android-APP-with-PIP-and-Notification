@@ -52,9 +52,9 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
      - Leanback launcher is required: <br/>
 	```
 	<intent-filter>
-	    <action android:name="android.intent.action.MAIN" />
-	    <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-	</intent-filter>
+           <action android:name="android.intent.action.MAIN" />
+           <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+        </intent-filter>
 	```
 
 #### 2. Image related:  #### 
