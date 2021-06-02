@@ -40,19 +40,15 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
    - Manifest file: 
      - For Android TV: What are the requirements to be done in the Manifest file?<br/>
 	```
-	     <!-- true:  your app runs on only TV
-		false: your app runs on phone and TV -->
-	       <uses-feature android:name="android.software.leanback" android:required="false" />
-	     <!-- TV app need to declare touchscreen not required -->
-	       <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+       <uses-feature android:name="android.software.leanback" android:required="false" />
+       <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	```
    - At the activity level:  
 	```
-	     android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
 	```
-
-   - In order to support PIP: ``` android:supportsPictureInPicture="true"   ```
-
+   - In order to support PIP: 
+        ``` android:supportsPictureInPicture="true"   ```
     - Leanback launcher is required:
 	```
 	   <intent-filter>
