@@ -88,25 +88,25 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
 
 #### 4. Exoplayer related: #### 
    - Playstate in the MediaSession should be updated. How could it be done?
-	```
-	val mediaController: MediaControllerCompat = mediaSession.getController()
-	val stateCompat: PlaybackStateCompat = mediaController.getPlaybackState()
-	val stateBuilder = PlaybackStateCompat.Builder()
-	    .setActions(getAvailableActions()).apply {
-		setState(stateCompat.getState(), player.currentPosition.toLong(), 1.0f) }
-	mediaSession.setPlaybackState(stateBuilder.build())
-	```
-	```
-	var actions = (PlaybackState.ACTION_PLAY_PAUSE
-	or PlaybackState.ACTION_PLAY or PlaybackState.ACTION_PAUSE
-	or PlaybackState.ACTION_REWIND or PlaybackState.ACTION_STOP )
-	val mediaController: MediaControllerCompat = mediaSession.getController()
-	val stateCompat: PlaybackStateCompat = mediaController.getPlaybackState()
-	val mState = stateCompat.getState()
-	actions = if (mState == PlaybackState.STATE_PLAYING) {
-	    actions or PlaybackState.ACTION_PAUSE 
-	} else { actions or PlaybackState.ACTION_PLAY }
-	```
+     ```
+      val mediaController: MediaControllerCompat = mediaSession.getController()
+      val stateCompat: PlaybackStateCompat = mediaController.getPlaybackState()
+      val stateBuilder = PlaybackStateCompat.Builder()
+          .setActions(getAvailableActions()).apply {
+             setState(stateCompat.getState(), player.currentPosition.toLong(), 1.0f) }
+      mediaSession.setPlaybackState(stateBuilder.build())
+     ```
+     ```
+      var actions = (PlaybackState.ACTION_PLAY_PAUSE
+        or PlaybackState.ACTION_PLAY or PlaybackState.ACTION_PAUSE
+        or PlaybackState.ACTION_REWIND or PlaybackState.ACTION_STOP )
+      val mediaController: MediaControllerCompat = mediaSession.getController()
+      val stateCompat: PlaybackStateCompat = mediaController.getPlaybackState()
+      val mState = stateCompat.getState()
+        actions = if (mState == PlaybackState.STATE_PLAYING) {
+           actions or PlaybackState.ACTION_PAUSE 
+        } else { actions or PlaybackState.ACTION_PLAY }
+      ```
 
 #### 5. Exoplayer related issues #### 
    - SimpleExoplayer.Builder(…) is to be used instead of ExoPlayerFactory.newSimpleInstance(…)
