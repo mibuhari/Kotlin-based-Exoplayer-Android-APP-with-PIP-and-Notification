@@ -251,7 +251,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
        }
       ```
 
-#### 9. References<a name="references"></a>
+### References<a name="references"></a>
 1. Former approach of Exoplayer with PIP in Kotlin.
    - https://medium.com/s23nyc-tech/drop-in-android-video-exoplayer2-with-picture-in-picture-e2d4f8c1eb30
 2. Kotlin tutorials
