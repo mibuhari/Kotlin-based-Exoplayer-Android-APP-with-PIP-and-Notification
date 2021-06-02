@@ -9,6 +9,12 @@ Min sdk is API 21 (Lollipop)
 
 ### Table of contents
 [Requirements for this project](#requirements)
+[How to use the app](#how-to)
+[Google Play concerns](#google-play)
+[Lessons learnt from the code](#lessons-learnt)
+  - [Manifest file related](#manifest-file)
+  - [General information](#general-info)
+[References](#requirements)
 
 ### Requirements for this project<a name="requirements"></a>
 1. Kotlin based Exoplayer development
@@ -18,7 +24,7 @@ Min sdk is API 21 (Lollipop)
 5. Support for YouTube Video
 6. Access JSON file to identify the necessary M3U8 or MP4 file to be played
 
-### How to use the app
+### How to use the app<a name="how-to"></a>
 1. This github repository contains ExtraFiles folder that contains the sample video files (M3U8 and MP4). M3U8 being a playlist, the necessary TS files are also provided there.
 2. JSON file is provided as “sampleMedia.json”
    - Change the link towards the necessary video link in this JSON file. 
@@ -26,7 +32,7 @@ Min sdk is API 21 (Lollipop)
 3. This app runs the YouTube video only when the first link is empty.
 4. For YouTube video to be played, an YouTubeAndroidPlayerApi.jar file is provided in the libs folder of the app.
 
-### Google Play concerns
+### Google Play concerns<a name="google-play"></a>
 Concerns raised | Deprecation Issue  | Solution
 ----------------- | ------------- | -------------
 No Now Playing notification [card]: What happens when the HOME button is pressed? | Some of the information present in this [page](https://developer.android.com/training/tv/playback/now-playing#card) is deprecated. | mediaSession.isActive = false
@@ -35,8 +41,8 @@ No full-size app banner: xhdpi banner with size 320px X 180px | Not Applicable |
 Audio plays after selecting “stops” | Not Applicable | Check if the relation between the background service and the activity. Maybe, they are not properly bind or unbind.
 Crashing after launch | Not Applicable | This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
 
-### Lessons learnt from the code
-#### 1. Manifest file related: ####
+### Lessons learnt from the code<a name="lessons-learnt"></a>
+#### 1. Manifest file related: ####<a name="manifest-file"></a>
    - For Android TV: What are the requirements to be done in the Manifest file? 
      - Leanback and touchscreen:
        ```
@@ -166,7 +172,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
       - Bounded services will be automatically destroyed when all clients have detached.
       - Services can be stopped using stopSelf() and stopService().
 
-#### 8. General information:  #### 
+#### 8. General information:  #### <a name="general-info"></a>
    - Is development in Kotlin difficult?
       - Not so. Even Android Studio converts the Java code into Kotlin code for us.
    - What if a specific code is applicable to a specific version of Android only?
@@ -242,7 +248,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
        }
       ```
 
-#### 9. References ####
+#### 9. References #### <a name="references"></a>
 1. Former approach of Exoplayer with PIP in Kotlin.
    - https://medium.com/s23nyc-tech/drop-in-android-video-exoplayer2-with-picture-in-picture-e2d4f8c1eb30
 2. Kotlin tutorials
