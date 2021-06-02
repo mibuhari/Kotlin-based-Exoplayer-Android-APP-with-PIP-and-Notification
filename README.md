@@ -40,7 +40,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
    - Manifest file: 
      - For Android TV: What are the requirements to be done in the Manifest file?
 	```
-	     <!-- true:  your app runs on only TV
+	     \<!-- true:  your app runs on only TV
 		false: your app runs on phone and TV -->
 	       <uses-feature android:name="android.software.leanback" android:required="false" />
 	     <!-- TV app need to declare touchscreen not required -->
