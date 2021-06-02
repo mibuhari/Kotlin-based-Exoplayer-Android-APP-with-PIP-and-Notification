@@ -8,13 +8,13 @@ I am not claiming to be an expert in this area. I have collected information fro
 Min sdk is API 21 (Lollipop)
 
 ### Table of contents
-[Requirements for this project](#requirements)
-[How to use the app](#how-to)
-[Google Play concerns](#google-play)
-[Lessons learnt from the code](#lessons-learnt)
-  - [Manifest file related](#manifest-file)
-  - [General information](#general-info)
-[References](#requirements)
+1. [Requirements for this project](#requirements)
+2. [How to use the app](#how-to)
+3. [Google Play concerns](#google-play)
+4. [Lessons learnt from the code](#lessons-learnt)
+   - [Manifest file related](#manifest-file)
+   - [General information](#general-info)
+5. [References](#requirements)
 
 ### Requirements for this project<a name="requirements"></a>
 1. Kotlin based Exoplayer development
@@ -172,7 +172,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
       - Bounded services will be automatically destroyed when all clients have detached.
       - Services can be stopped using stopSelf() and stopService().
 
-#### 8. General information:  #### <a name="general-info"></a>
+#### 8. General information:<a name="general-info"></a>
    - Is development in Kotlin difficult?
       - Not so. Even Android Studio converts the Java code into Kotlin code for us.
    - What if a specific code is applicable to a specific version of Android only?
@@ -248,7 +248,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
        }
       ```
 
-#### 9. References #### <a name="references"></a>
+#### 9. References<a name="references"></a>
 1. Former approach of Exoplayer with PIP in Kotlin.
    - https://medium.com/s23nyc-tech/drop-in-android-video-exoplayer2-with-picture-in-picture-e2d4f8c1eb30
 2. Kotlin tutorials
