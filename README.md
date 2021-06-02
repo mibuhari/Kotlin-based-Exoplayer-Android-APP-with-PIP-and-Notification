@@ -40,7 +40,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
    - For Android TV: What are the requirements to be done in the Manifest file? 
      - Leanback and touchscreen:
 	<pre>```
-         <uses-feature android:name="android.software.leanback" android:required="false" />
+         <uses-feature android:name="android.software.leanback" android:required="false" /> <br>
          <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	```</pre>
      - At the activity level:  
