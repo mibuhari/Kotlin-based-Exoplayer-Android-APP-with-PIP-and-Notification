@@ -151,38 +151,44 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
    - onNotificationPosted is called every time a notification is posted and/or created. How to handle this?
       - The method onDestroy() calls playerNotificationManager.setPlayer(null)
 
-####  Service related:  #### 
-    - How to make sure that all the services or processes or activities are closed?
-      - You could get the current state of the activity: lifecycle.currentState.toString()
-      - We could get the details of the running app processes:
+#### 7. Service related:  #### 
+   - How to make sure that all the services or processes or activities are closed?
+     - You could get the current state of the activity: lifecycle.currentState.toString()
+     - We could get the details of the running app processes:
         ```
-          val mngr = getSystemService(ACTIVITY_SERVICE) as ActivityManager
-for (service in mngr.getRunningAppProcesses()) {
-    Log.e("messages",service.processName)
-}
-```
-    - What is the difference between bindService and startService?
+         val mngr = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+         for (service in mngr.getRunningAppProcesses()) {
+             Log.e("messages",service.processName)
+         }
+        ```
+     - What is the difference between bindService and startService?
       - startService() is used to start a service but bindService() is used to bound a service.
       - Bounded services will be automatically destroyed when all clients have detached.
       - Services can be stopped using stopSelf() and stopService().
 
-####  General information:  #### 
-20.	Is development in Kotlin difficult?
-Not so. Even Android Studio converts the Java code into Kotlin code for us.
-21.	What if a specific code is applicable to a specific version of Android only?
-if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N {}
-22.	What happens when we swipe the app to stop it?
-The onTaskRemoved method is called.
-23.	What is the difference between non-null and null type of variables in Kotlin?
-a.	As an example, String cannot hold null. 
-b.	var a: String = "abc" // Regular initialization means non-null by default
-c.	a = null // compilation error
-d.	var b: String? = "abc" // can be set null
-e.	b = null // ok
-24.	How to handle the support or absence of support of PIP in Android TV and mobile devices?
-a.	Check the Android version to make sure PIP is supported.
-b.	It should be noted that certain SMART TVs also don’t support PIP properly. Thus, validation can be done using packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
-25.	On a TV, it is necessary to cater for NOISY AUDIO. How to handle this?
+#### 8. General information:  #### 
+   - Is development in Kotlin difficult?
+      - Not so. Even Android Studio converts the Java code into Kotlin code for us.
+   - What if a specific code is applicable to a specific version of Android only?
+     ```
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N {}
+     ```
+   - What happens when we swipe the app to stop it?
+      - The onTaskRemoved method is called.
+   - What is the difference between non-null and null type of variables in Kotlin?
+      - As an example, String cannot hold null. 
+        ```
+         var a: String = "abc" // Regular initialization means non-null by default
+         a = null // compilation error
+         var b: String? = "abc" // can be set null
+         b = null // ok
+   - How to handle the support or absence of support of PIP in Android TV and mobile devices?
+      - Check the Android version to make sure PIP is supported.
+      - It should be noted that certain SMART TVs also don’t support PIP properly. Thus, validation can be done using
+        ```
+          packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
+        ```
+   - On a TV, it is necessary to cater for NOISY AUDIO. How to handle this?
 In the Manifest file, add the necessary intent-filter.
 <intent-filter>
     <action android:name="android.media.AUDIO_BECOMING_NOISY" />
@@ -200,41 +206,43 @@ Register this receiver during the onPlay() or other methods.
 override fun onPlay() {
     registerReceiver(BecomingNoisyReceiver, intentFilter)
 }
-26.	How to validate whether we are running the app on a TV or a mobile device?
-a.	val uiModeManager = getSystemService(UI_MODE_SERVICE) as UiModeManager
-deviceIsTV = uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION
-27.	How to simulate various keys in emulator, to test the application?
-C:\Users\<username>\AppData\Local\Android\Sdk\platform-tools\adb shell input keyevent 127
-Here, 126 is play, 127 is stop, 85 is Play/Pause, 86 is Stop
-KeyEvent details are available at:
-https://developer.android.com/reference/android/view/KeyEvent
-28.	What if the Volley returns the request with an error? Can we request the volley in a loop?
-private fun volleyRequest()
-{
-  var requestQueue: RequestQueue = Volley.newRequestQueue(applicationContext)
+   - How to validate whether we are running the app on a TV or a mobile device?
+     ```
+       val uiModeManager = getSystemService(UI_MODE_SERVICE) as UiModeManager
+       deviceIsTV = uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION
+     ```
+   - How to simulate various keys in emulator, to test the application?
+     - C:\Users\<username>\AppData\Local\Android\Sdk\platform-tools\adb shell input keyevent 127
+     - Here, 126 is play, 127 is stop, 85 is Play/Pause, 86 is Stop
+     - KeyEvent details are available at:
+     - https://developer.android.com/reference/android/view/KeyEvent
+   - What if the Volley returns the request with an error? Can we request the volley in a loop?
+     ```
+      private fun volleyRequest()
+      {
+        var requestQueue: RequestQueue = Volley.newRequestQueue(applicationContext)
+           jsonObjectRequest = JsonObjectRequest(
+             Request.Method.GET, mJSONURLString, null,
+              { response ->
+                try {
+                  // Get the JSON array
+                } catch (e: JSONException) {   e.printStackTrace()  }
+              },
+              { error ->
+                 // TODO: Handle error: Repeat retrieving the json
+                 volleyRequest()
+              }
+         )
+         // Add JsonObjectRequest to the RequestQueue
+         requestQueue.add(jsonObjectRequest)
+       }
+      ```
 
-    jsonObjectRequest = JsonObjectRequest(
-        Request.Method.GET, mJSONURLString, null,
-        { response ->
-            try {
-                // Get the JSON array
-            } catch (e: JSONException) {   e.printStackTrace()  }
-        },
-        { error ->
-            // TODO: Handle error: Repeat retrieving the json
-            volleyRequest()
-        }
-    )
-    // Add JsonObjectRequest to the RequestQueue
-    requestQueue.add(jsonObjectRequest)
-}
-29.	
-
-References
-1.	Former approach of Exoplayer with PIP in Kotlin.
-a.	https://medium.com/s23nyc-tech/drop-in-android-video-exoplayer2-with-picture-in-picture-e2d4f8c1eb30
-2.	Kotlin tutorials
-a.	https://www.javatpoint.com/kotlin-android-toast
+#### 9. References ####
+1. Former approach of Exoplayer with PIP in Kotlin.
+   - https://medium.com/s23nyc-tech/drop-in-android-video-exoplayer2-with-picture-in-picture-e2d4f8c1eb30
+2. Kotlin tutorials
+   - https://www.javatpoint.com/kotlin-android-toast
 3.	JSON parsing in Kotlin
 a.	https://android--code.blogspot.com/2020/10/android-kotlin-volley-jsonobjectrequest.html
 4.	Exoplayer on Kotlin - Latest
