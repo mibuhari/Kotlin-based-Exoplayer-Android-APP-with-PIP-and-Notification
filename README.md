@@ -46,7 +46,7 @@ Crashing after launch | Not Applicable | This might be due to Volley not obtaini
      <!-- TV app need to declare touchscreen not required -->
        <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 ```
-   - At the activity level: 
+   - At the activity level:  
 ```
      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode|navigation"
 ```
