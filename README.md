@@ -119,12 +119,12 @@ actions = if (mState == PlaybackState.STATE_PLAYING) {
    - What is the difference between prepare() and play() methods in ExoPlayer?
      - Exoplayer prepare() method is used to acquire all the resources required for playback.
      - Exoplayer play() method is used to play when the stream is ready. The option player.playWhenReady could be enabled true to play once the stream is ready.
-10.	What is the use of MediaSession in ExoPlayer instance?
-a.	MediaSession is used to provide various details to the media player, like meta data, handling keys, etc. 
-11.	Sometimes the audio/media buttons like play, pause and others are not visible. How to handle this?
-playerView.setUseController(true)
+   - What is the use of MediaSession in ExoPlayer instance?
+     - MediaSession is used to provide various details to the media player, like meta data, handling keys, etc. 
+   - Sometimes the audio/media buttons like play, pause and others are not visible. How to handle this?
+     - playerView.setUseController(true)
 
-Notification related:
+6. Notification related:
 12.	How to make sure only audio bandwidth is consumed when the app is playing in the background?
 trackSelector = DefaultTrackSelector(this)
 mPlayer = SimpleExoPlayer.Builder(this)
