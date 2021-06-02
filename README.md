@@ -1,7 +1,7 @@
 ## Kotlin-based-Exoplayer-Android-APP-with-PIP-and-Notification
 Android APP that supports mobile devices as well as Android TV. App is developed using Kotlin and supports Picture-In-Picture and Notification.
 
-### Disclaimner
+### Disclaimer  
 I am not claiming to be an expert in this area. I have collected information from various sources on the Internet to accomplish these requirements.
 
 ### Min SDK
