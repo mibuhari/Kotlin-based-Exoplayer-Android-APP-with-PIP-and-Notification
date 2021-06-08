@@ -45,6 +45,7 @@ Update of metadata | Content in the second column |  ``` val builder = MediaMeta
 No full-size app banner: xhdpi banner with size 320px X 180px | Not Applicable | This could be handled using a banner image in the app drawable folder and refer it in the manifest file as: ``` <application android:banner="@drawable/image" ...  ```
 Audio plays after selecting “stops” | Not Applicable | Check if the relation between the background service and the activity. Maybe, they are not properly bind or unbind.
 Crashing after launch | Not Applicable | This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
+version already exist | Not Applicable | Update the versionCode and versionCode in the build.grade to the version more than the already available version on PlayStore.
 
 ### Lessons learnt from the code<a name="lessons-learnt"></a>
 #### 1. Manifest file related:<a name="manifest-file-related"></a>
