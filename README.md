@@ -142,6 +142,8 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
      - MediaSession is used to provide various details to the media player, like meta data, handling keys, etc. 
    - Sometimes the audio/media buttons like play, pause and others are not visible. How to handle this?
      - playerView.setUseController(true)
+   - What is the solution for the error "HLS video playback throws "Unexpected runtime error" after video complete : "E/ExoPlayerImplInternal: Playback error""?
+     - This is an ExoPlayer related error. Please make sure to update your ExoPlayer.
    - Playstate in the MediaSession should be updated. How could it be done?
      ```
       val mediaController: MediaControllerCompat = mediaSession.getController()
