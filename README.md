@@ -13,7 +13,8 @@ Min sdk is API 21 (Lollipop)
 3. [Google Play concerns](#google-play)
 4. [Lessons learnt from the code](#lessons-learnt)
    - [Manifest file related](#manifest-file-related)
-   - [Gradle file related](#gradle-related)
+   - [Gradle related](#gradle-related)
+   - [Kotlin related](#kotlin-related)
    - [Image related](#image-related)
    - [Android TV related](#android-tv-related)
    - [Exoplayer related](#exoplayer-related)
@@ -89,13 +90,25 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
      ```
    - 
 
-#### 3. Image related:<a name="image-related"></a> 
+#### 3. Kotlin related:<a name="kotlin-related"></a> 
+   - What could be done with errors like "Kotlin Error : Could not find org.jetbrains.kotlin:kotlin-stdlib-jre7:1.0.7"?
+     - do these in build.grade of your app
+       replace
+        ```
+         implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+        ```
+       with
+        ```
+         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        ```
+
+#### 4. Image related:<a name="image-related"></a> 
    - How to generate the necessary images for various devices?
      - Right-Click on the res folder, click New and then click Image Asset. A suitable image can be selected and appropriate images can be selected.  
    - Even though the appropriate images have been provided, the necessary images are not displayed. How to handle it?
      - XML files like ic_launcher_foreground.xml and ic_launcher_background.xml might be present in the drawable folder. This shows the default image type. Once you remove these files, the newly generated images will appear.
 
-#### 4. Android TV related:<a name="android-tv-related"></a> 
+#### 5. Android TV related:<a name="android-tv-related"></a> 
    - How to handle the deprecation in MediaSession.FLAG_HANDLES_MEDIA_BUTTONS or MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS?   
      - This is handled using MediaSessionCompat.Callback() and capturing the keys.  
    - How to handle pressing of the Back key in the app?  	  
@@ -118,7 +131,7 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
       })
      ```
 
-#### 5. Exoplayer related:<a name="exoplayer-related"></a> 
+#### 6. Exoplayer related:<a name="exoplayer-related"></a> 
    - SimpleExoplayer.Builder(…) is to be used instead of ExoPlayerFactory.newSimpleInstance(…)
    - What is the difference between prepare() and play() methods in ExoPlayer?
      - Exoplayer prepare() method is used to acquire all the resources required for playback.
@@ -148,7 +161,7 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
         } else { actions or PlaybackState.ACTION_PLAY }
       ```
 
-#### 6. Notification related:<a name="notification-related"></a> 
+#### 7. Notification related:<a name="notification-related"></a> 
    - How to make sure only audio bandwidth is consumed when the app is playing in the background?
       ```
        trackSelector = DefaultTrackSelector(this)
@@ -181,7 +194,7 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
    - onNotificationPosted is called every time a notification is posted and/or created. How to handle this?
       - The method onDestroy() calls playerNotificationManager.setPlayer(null)
 
-#### 7. Service related:<a name="service-related"></a> 
+#### 8. Service related:<a name="service-related"></a> 
    - How to make sure that all the services or processes or activities are closed?
      - You could get the current state of the activity: lifecycle.currentState.toString()
      - We could get the details of the running app processes:
@@ -196,7 +209,7 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
       - Bounded services will be automatically destroyed when all clients have detached.
       - Services can be stopped using stopSelf() and stopService().
 
-#### 8. General information:<a name="general-info"></a>
+#### 9. General information:<a name="general-info"></a>
    - Is development in Kotlin difficult?
       - Not so. Even Android Studio converts the Java code into Kotlin code for us.
    - What if a specific code is applicable to a specific version of Android only?
