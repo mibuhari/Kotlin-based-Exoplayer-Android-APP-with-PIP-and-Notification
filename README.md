@@ -88,6 +88,7 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
        android.enableJetifier=true
        android.useAndroidX=true
      ```
+     after enabling AndroidX, you might need to change ``` import android.support.v7.app.AppCompatActivity ``` to ``` import androidx.appcompat.app.AppCompatActivity; ```
    - What to do for "Android version release warning message: This App Bundle contains Java/Kotlin code, which might be obfuscated" error?
      - Change minifyEnabled to true in build.grade file
 
