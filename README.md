@@ -88,7 +88,8 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
        android.enableJetifier=true
        android.useAndroidX=true
      ```
-   - 
+   - What to do for "Android version release warning message: This App Bundle contains Java/Kotlin code, which might be obfuscated" error?
+     - Change minifyEnabled to true in build.grade file
 
 #### 3. Kotlin related:<a name="kotlin-related"></a> 
    - What could be done with errors like "Kotlin Error : Could not find org.jetbrains.kotlin:kotlin-stdlib-jre7:1.0.7"?
