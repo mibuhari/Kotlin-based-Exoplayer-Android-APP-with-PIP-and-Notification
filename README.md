@@ -71,7 +71,7 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
        ```
 
 #### 2. Gradle related:<a name="gradle-related"></a> 
-   - What happens if i get an error "Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6"?
+   - What happens if i get an error "Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6"? Also, What could be done with errors like "Kotlin gradle Could not initialize class class org.jetbrains.kotlin.gradle.internal.KotlinSourceSetProviderImplKt"?
      - add these to the build.grade of your app
        ```
        compileOptions {
