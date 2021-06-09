@@ -48,6 +48,7 @@ No full-size app banner: xhdpi banner with size 320px X 180px | Not Applicable |
 Audio plays after selecting “stops” | Not Applicable | Check if the relation between the background service and the activity. Maybe, they are not properly bind or unbind.
 Crashing after launch | Not Applicable | This might be due to Volley not obtaining the right json file. Repeat the volley call if the volley request error for the first time.
 version already exist | Not Applicable | Update the versionCode and versionCode in the build.grade to the version more than the already available version on PlayStore.
+Reduce your app size and boost installs with the Android App Bundle | Not Applicable | Generate AAB file instead of APK from your Android Studio
 
 ### Lessons learnt from the code<a name="lessons-learnt"></a>
 #### 1. Manifest file related:<a name="manifest-file-related"></a>
@@ -137,10 +138,13 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
    - What is the difference between prepare() and play() methods in ExoPlayer?
      - Exoplayer prepare() method is used to acquire all the resources required for playback.
      - Exoplayer play() method is used to play when the stream is ready. The option player.playWhenReady could be enabled true to play once the stream is ready.
+   - What is the use of setPlayWhenReady(true)?
+     - Once getPlaybackState() returns STATE_READY, the player should play.
    - What is the use of MediaSession in ExoPlayer instance?
      - MediaSession is used to provide various details to the media player, like meta data, handling keys, etc. 
    - Sometimes the audio/media buttons like play, pause and others are not visible. How to handle this?
      - playerView.setUseController(true)
+     - Also, there is showController() method in PlayerView
    - What is the solution for the error "HLS video playback throws "Unexpected runtime error" after video complete : "E/ExoPlayerImplInternal: Playback error""?
      - This is an ExoPlayer related error. Please make sure to update your ExoPlayer.
    - Playstate in the MediaSession should be updated. How could it be done?
@@ -207,10 +211,16 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
              Log.e("messages",service.processName)
          }
         ```
-     - What is the difference between bindService and startService?
-      - startService() is used to start a service but bindService() is used to bound a service.
-      - Bounded services will be automatically destroyed when all clients have detached.
-      - Services can be stopped using stopSelf() and stopService().
+   - What is the difference between bindService and startService?
+     - startService() is used to start a service but bindService() is used to bound a service.
+     - Bounded services will be automatically destroyed when all clients have detached.
+     - Services can be stopped using stopSelf() and stopService().
+     - startService() calls onStartCommand() while bindService() does not.
+   - Why is that onServiceConnected() is not called after bindService() method?
+     - Note that there can a delay before the onServiceConnected() method is called after calling bindService() method
+     - Also, if the bindService() method is calling from onCreate(), then the onServiceConnected() is invoked only after the completion of onCreate() method.
+   - Why is onServiceDisconnected() invoked after calling stopSelf() or stopService() method?
+     - Note whether the service was started using startService() or bindService(). If bindService() was used, unbindService() is needed to invoke the onServiceConnected() method. 
 
 #### 9. General information:<a name="general-info"></a>
    - Is development in Kotlin difficult?
@@ -289,6 +299,12 @@ version already exist | Not Applicable | Update the versionCode and versionCode 
       ```
    - How to upload the APP into github?
      - consider using .gitignore where you ignore the build, captures, caches and few other folders.
+   - Is it advisable to use system.exit(0) to stop services or activity?
+     - It is not advisable. It might not even work as expected.
+   - How to check the network, CPU, memory and other usage of your application?
+     - You could use profiler option available in Android Studio. Please refer: https://developer.android.com/studio/profile/cpu-profiler
+   - What is the use of android:launchmode="singleInstance" ?
+     - This is to make sure only one instance. This activity will be the single and only member of the task. Please refer to: https://developer.android.com/guide/topics/manifest/activity-element
    - 
 
 ### References<a name="references"></a>
