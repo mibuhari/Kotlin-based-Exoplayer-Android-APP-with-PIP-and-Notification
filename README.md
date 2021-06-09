@@ -305,7 +305,6 @@ Reduce your app size and boost installs with the Android App Bundle | Not Applic
      - You could use profiler option available in Android Studio. Please refer: https://developer.android.com/studio/profile/cpu-profiler
    - What is the use of android:launchmode="singleInstance" ?
      - This is to make sure only one instance. This activity will be the single and only member of the task. Please refer to: https://developer.android.com/guide/topics/manifest/activity-element
-   - 
 
 ### References<a name="references"></a>
 1. Former approach of Exoplayer with PIP in Kotlin.
