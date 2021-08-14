@@ -92,6 +92,11 @@ Reduce your app size and boost installs with the Android App Bundle | Not Applic
      after enabling AndroidX, you might need to change ``` import android.support.v7.app.AppCompatActivity ``` to ``` import androidx.appcompat.app.AppCompatActivity; ```
    - What to do for "Android version release warning message: This App Bundle contains Java/Kotlin code, which might be obfuscated" error?
      - Change minifyEnabled to true in build.grade file
+   - What should I do, if i get the error "app:mergeDebugNativeLibs'. > A failure occurred while executing com.android.build.gradle.internal.tasks.MergeJavaResWorkAction > org/apache/commons/codec/binary/Base64"
+     - add these lines to build.grade of your app
+        ```
+	classpath "commons-codec:commons-codec:1.11"
+	```
 
 #### 3. Kotlin related:<a name="kotlin-related"></a> 
    - What could be done with errors like "Kotlin Error : Could not find org.jetbrains.kotlin:kotlin-stdlib-jre7:1.0.7"?
